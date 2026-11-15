@@ -20,6 +20,16 @@ Average hotspots per year, Sabah box, 2003–2011 against 2012–2025:
 
 Joined as-is, hotspots look like they doubled. Harmonized, they fell by about 59%. MODIS alone shows the same fall. That follows from the arithmetic, so it is not an independent check of the ratio. It shows the fall comes from the MODIS record itself. The ratio puts both eras on one scale and removes the fake doubling. The 2003–2011 harmonized values are estimates. This is a change in estimated hotspot counts, not burned area.
 
+## What the site shows
+- **Status of the latest month.** Class (Low, Medium, High, Very high), hotspot count, and how it compares with the usual for that month.
+- **Burning activity calendar.** Every month from January 2003 to October 2026 in one grid. Tap a month for its counts, its rank and how it was measured.
+- **Critical burning windows.** How often each calendar month reached High or Very high. Two views: all years, and measured years only (2013 to 2025). The clear March to October season leans on the estimated years. In measured years only March, July and August qualify.
+- **Most unusual months.** The months furthest above their usual level.
+- **How sure are we.** What we tested, what held up, and what we cannot know.
+- **Use this for your region.** Three steps to build your own ratio. Our ratio is for Sabah only.
+
+Hatched cells are estimates from MODIS (before February 2012). Dashed cells are provisional (August to October 2026). The site is history for planning, not a forecast and not live data.
+
 ## Method
 1. Download MODIS C6.1 and VIIRS S-NPP 375 m archive data from NASA FIRMS for the Sabah box (lat 4.0–7.5, lon 115.3–119.3).
 2. Clean both: vegetation fires only (`type` = 0), MODIS confidence 30 or more, VIIRS nominal or high.
@@ -97,7 +107,8 @@ NASA FIRMS: MODIS Collection 6.1 (Terra and Aqua) and VIIRS 375 m Collection 2 (
 
 ## AI use
 We used Claude (Anthropic) to explain methods step by step, write and run analysis code in Google Colab and Claude Code, check results, and draft text and website code. A second AI model reviewed some experiments. The team ran the code on our own data and reviewed the results.
-The project idea and direction were chosen by team SpaceZY.
+The project idea and direction were chosen by Kang Juwon with team SpaceZY.
 
 ## Team
 SpaceZY. NASA Space Apps Challenge 2026.
+Kang Juwon: harmonization, analysis and website. Two teammates: slides and design.
