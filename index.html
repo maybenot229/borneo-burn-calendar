@@ -15,23 +15,28 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
+<header class="hero">
   <div class="wrap">
     <h1>Borneo Burn Calendar</h1>
     <p class="lead">20+ years of fire hotspots as one consistent monthly record, so land managers can plan their fire season.</p>
-    <p class="tags"><span>Sabah, Malaysia</span><span id="latestTag">Latest complete month: …</span></p>
+    <p class="tags">Sabah, Malaysia. <span id="latestTag">Latest complete month: …</span></p>
+    <div class="status" id="status" aria-label="Status of the latest month"></div>
+    <div class="stamp" id="stamp" aria-label="Data coverage"></div>
   </div>
 </header>
 
-<main class="wrap">
+<main>
+  <noscript><p class="error">This page needs JavaScript to draw the calendar. Please turn it on.</p></noscript>
   <p id="error" class="error" hidden></p>
 
-  <section class="headline" id="headline" aria-label="Headline finding" hidden>
+
+  <section class="band headline" id="headline" aria-label="Headline finding" hidden><div class="wrap">
     <p class="h1line" id="headLine1"></p>
     <p class="h2line"><span id="headLine2"></span> <a href="#proof1">See Proof 1</a></p>
-  </section>
+  </div></section>
 
-  <section class="card controls" aria-label="Controls">
+  <section class="band alt controls tight" aria-label="Controls"><div class="wrap">
+    <div class="ctrlrow">
     <label>From year <select id="from"></select></label>
     <label>To year <select id="to"></select></label>
     <div class="field">
@@ -42,27 +47,55 @@
       </span>
     </div>
     <a class="btn" id="download" href="data/sabah_harmonized_monthly.csv" download>Download CSV</a>
-  </section>
+    </div>
+    <div class="stats" id="stats" aria-label="Summary"></div>
+  </div></section>
 
-  <section class="stats" id="stats" aria-label="Summary"></section>
 
-  <section class="card">
+  <section class="band " id="calendar"><div class="wrap">
     <h2>Burning activity calendar</h2>
-    <p class="hint" id="heatHint"></p>
-    <div class="scroll"><table class="heat" id="heat"></table></div>
-    <div class="legend" id="legend"></div>
-  </section>
+    <div class="calwrap">
+      <div class="matrixcol">
+        <p class="hint" id="heatHint"></p>
+        <div class="scroll heatbox"><table class="heat" id="heat"></table></div>
+        <div class="legend" id="legend"></div>
+        <div class="terms" id="terms" aria-label="Glossary"></div>
+        <p class="termout" id="termOut" aria-live="polite"></p>
+      </div>
+      <aside class="detailcol">
+        <div class="details" id="details" tabindex="-1" aria-live="polite" hidden></div>
+        <p class="dplaceholder">Select a month in the calendar to see its details here.</p>
+      </aside>
+    </div>
+  </div></section>
 
-  <section class="card">
+  <section class="band alt " id="windows"><div class="wrap">
+    <h2>Critical burning windows</h2>
+    <p class="hint">In how many years did each calendar month reach High or Very high?</p>
+    <div class="toggle" role="group" aria-label="Years used" id="winToggle"></div>
+    <p class="note" id="winNote"></p>
+    <ol class="bars" id="winBars"></ol>
+    <p class="winsentence" id="winSentence"></p>
+    <p class="hint">This is history, not a forecast.</p>
+  </div></section>
+
+  <section class="band " id="unusual"><div class="wrap">
+    <h2>Most unusual months</h2>
+    <p class="hint">Hotspot counts compared with the usual for that calendar month.</p>
+    <ol class="unusual" id="unusualList"></ol>
+    <p class="hint" id="unusualNote"></p>
+  </div></section>
+
+  <section class="band alt "><div class="wrap">
     <h2>Now vs normal</h2>
     <p class="hint">One month compared with the median of the same calendar month over the previous years (up to 10).</p>
     <label class="inline">Month <select id="nowMonth"></select></label>
     <div id="nowBox" class="nowbox"></div>
-  </section>
+  </div></section>
 
-  <section class="card" id="proof1">
+  <section class="band " id="proof1"><div class="wrap">
     <h2>Proof 1: the fake jump at 2012</h2>
-    <p class="hint">Raw join uses MODIS counts before February 2012 and VIIRS counts after. VIIRS sees more, so fire seems to jump. The harmonized record removes that jump.</p>
+    <p class="hint">Raw join uses MODIS counts before February 2012 and VIIRS counts after. VIIRS sees more, so hotspots seem to jump. The harmonized record removes that jump.</p>
     <div id="lineChart"></div>
     <div class="key">
       <span><i class="k-harm"></i>Harmonized</span>
@@ -78,22 +111,58 @@
       </div>
       <div class="scroll"><table class="plain" id="yearTable"></table></div>
     </details>
-  </section>
+  </div></section>
 
-  <section class="card">
+  <section class="band alt "><div class="wrap">
     <h2>Proof 2: tested on years the method never saw</h2>
     <p class="hint">We learned the ratio on 2012–2018, then predicted VIIRS for 2019–2025 from MODIS alone.</p>
     <img src="img/chart_holdout_test.png" loading="lazy"
          alt="Line chart of monthly hotspots in Sabah, 2019 to 2025. The adjusted MODIS line follows the real VIIRS line closely, including the peaks in early 2019, 2020 and 2024. The raw MODIS line sits far below both.">
     <p class="caption">Hold-out test. Blue: real VIIRS. Orange dashes: MODIS × ratio. Grey dots: MODIS with no fix. Chart made by our notebook from NASA FIRMS data.</p>
-  </section>
+    <figure class="fig">
+      <img src="img/slide6_three_panel.png" loading="lazy"
+           alt="Three panels comparing daytime Aqua (MODIS) and Suomi NPP (VIIRS) detections in Sabah. VIIRS-only detections have lower fire power and are more often single isolated pixels than the detections both sensors share.">
+      <figcaption class="caption">VIIRS-only detections are weaker and more often single pixels. This is a pattern in daytime Aqua against Suomi NPP data, not proof of why. It does not show that MODIS missed fires.</figcaption>
+    </figure>
+  </div></section>
 
-  <section class="card results">
+  <section class="band " id="sure"><div class="wrap">
+    <h2>How sure are we?</h2>
+    <div class="trio">
+      <div><h3>What we tested</h3>
+        <ul>
+          <li>Learn the ratio on Feb 2012 to Dec 2018. Test on 2019 to 2025.</li>
+          <li>About 24% total error. Same colour class in 72 of 84 months.</li>
+          <li>Five other methods on the same split. None clearly beat the fixed ratio.</li>
+        </ul></div>
+      <div><h3>What held up</h3>
+        <ul>
+          <li>The fall of about 59% shows in every check we ran.</li>
+          <li>MODIS alone shows the same fall. That follows from the arithmetic, so it is not an independent check of the ratio.</li>
+        </ul></div>
+      <div><h3>What we cannot know</h3>
+        <ul>
+          <li>The ratio before 2012 cannot be tested.</li>
+          <li>It would have to be 2.0 for the fall to vanish. The lowest yearly ratio we measured is 4.2.</li>
+          <li>The ratio of about 4.95 holds only for our confidence filters and only for Sabah.</li>
+        </ul></div>
+    </div>
+    <div class="scroll"><table class="plain sure">
+      <caption>Size of the fall under different checks</caption>
+      <tr><th>Check</th><th>Fall in yearly hotspots</th></tr>
+      <tr><td>Ratio uncertainty only</td><td>about −57% to −61%</td></tr>
+      <tr><td>Drop any one year</td><td>about −56% to −66%</td></tr>
+      <tr><td>Years treated as a sample (only nine early years)</td><td>about −35% to −75%</td></tr>
+    </table></div>
+    <p class="hint">Details: <a href="https://github.com/maybenot229/borneo-burn-calendar/blob/main/robustness/REPORT.md">robustness/REPORT.md</a> and <a href="https://github.com/maybenot229/borneo-burn-calendar/blob/main/experiment_b/REPORT.md">experiment_b/REPORT.md</a> in the repository.</p>
+  </div></section>
+
+  <section class="band alt results"><div class="wrap">
     <h2>Results</h2>
     <p>On test years the method had about 24% total error and agreed on the colour class 86% of the time. Reliable for ranking months and seeing the season. Not for one exact month before 2012.</p>
-  </section>
+  </div></section>
 
-  <section class="card">
+  <section class="band "><div class="wrap">
     <h2>How it works</h2>
     <ol class="steps">
       <li><b>Clean both datasets.</b> Same area, same confidence rule, monthly counts.</li>
@@ -102,9 +171,20 @@
       <li><b>Estimate earlier years.</b> MODIS counts before 2012 are multiplied by that ratio.</li>
       <li><b>Test it.</b> We checked the method on 2019–2025, years it never saw.</li>
     </ol>
-  </section>
+  </div></section>
 
-  <section class="card">
+  <section class="band alt " id="region"><div class="wrap">
+    <h2>Use this for your region</h2>
+    <ol class="steps">
+      <li><b>Get FIRMS data</b> for your own box from NASA FIRMS.</li>
+      <li><b>Find the years where both sensors overlap</b> and compute your own ratio.</li>
+      <li><b>Test it on years you held back</b> before you trust it.</li>
+    </ol>
+    <p>Our notebooks: <a href="https://github.com/maybenot229/borneo-burn-calendar/tree/main/notebooks">notebooks/</a>. Method tests: <a href="https://github.com/maybenot229/borneo-burn-calendar/blob/main/analysis/method_checks.py">analysis/method_checks.py</a>.</p>
+    <p><b>Our ratio of about 4.95 is for Sabah only. Do not reuse it elsewhere.</b></p>
+  </div></section>
+
+  <section class="band "><div class="wrap">
     <h2>Limits</h2>
     <ul class="limits">
       <li>FIRMS lists detections only, so we cannot prove MODIS missed a fire.</li>
@@ -117,13 +197,13 @@
       <li>August to October 2026 is provisional near-real-time data.</li>
       <li>This is a planning tool, not live fire response.</li>
     </ul>
-  </section>
+  </div></section>
 </main>
 
-<footer class="wrap">
+<footer><div class="wrap">
   Team SpaceZY. NASA Space Apps Challenge 2026. Data: NASA FIRMS (MODIS C6.1, VIIRS S-NPP).
   AI use: code and draft text produced with Claude (Anthropic), directed and reviewed by the team.
-</footer>
+</div></footer>
 
 <script src="app.js"></script>
 </body>
