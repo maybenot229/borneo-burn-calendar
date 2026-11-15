@@ -90,6 +90,14 @@ We matched Aqua and Suomi NPP detections, 2012–2022, daytime. VIIRS detections
 - The ratio is proven for the Sabah box only, which also covers parts of neighbouring regions. A region cut in four showed ratios between about 4.4 and 6.1, so the ratio is not the same everywhere.
 - August to October 2026 uses near-real-time data and is provisional.
 
+## Run it locally
+
+1. Clone this repository: `git clone https://github.com/maybenot229/borneo-burn-calendar.git`
+2. In the folder, run `python -m http.server 8000`.
+3. Open `http://localhost:8000` in a browser.
+
+No install or build step is needed. The site is plain HTML, CSS and JavaScript. Opening `index.html` by double-click will not load the data, so use the local server or the live site.
+
 ## Repository
 | Path | What |
 |---|---|
@@ -107,8 +115,8 @@ NASA FIRMS: MODIS Collection 6.1 (Terra and Aqua) and VIIRS 375 m Collection 2 (
 
 ## AI use
 We used Claude (Anthropic) to explain methods step by step, write and run analysis code in Google Colab and Claude Code, check results, and draft text and website code. A second AI model reviewed some experiments. The team ran the code on our own data and reviewed the results.
-The project idea and direction were chosen by Kang Juwon with team SpaceZY.
+The project idea and direction were chosen by the team.
 
 ## Team
 SpaceZY. NASA Space Apps Challenge 2026.
-Kang Juwon: harmonization, analysis and website. Two teammates: slides and design.
+One member: harmonization, analysis and website. Two members: slides and design.
