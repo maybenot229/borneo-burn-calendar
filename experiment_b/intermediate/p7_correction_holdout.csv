@@ -1,0 +1,4 @@
+,WAPE (total error),colour-class agreement,|sum error|
+ratio of sums (baseline),0.2429,0.8571,0.0076
+straight line (baseline),0.2353,0.8571,0.0057
+power law (activity-dependent),0.2586,0.7976,0.0981
