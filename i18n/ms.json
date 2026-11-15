@@ -1,0 +1,21 @@
+{
+  "_note": "Draft Bahasa Malaysia strings. Every string needs review by a Malay speaker before use. Not wired into index.html.",
+  "heading.status": {"text": "Bagaimana bulan ini?", "review": "NEEDS REVIEW"},
+  "heading.calendar": {"text": "Kalendar aktiviti pembakaran", "review": "NEEDS REVIEW"},
+  "heading.windows": {"text": "Tempoh pembakaran kritikal", "review": "NEEDS REVIEW"},
+  "heading.unusual": {"text": "Bulan paling luar biasa", "review": "NEEDS REVIEW"},
+  "heading.sure": {"text": "Setakat mana kami yakin?", "review": "NEEDS REVIEW"},
+  "class.low": {"text": "Rendah", "review": "NEEDS REVIEW"},
+  "class.medium": {"text": "Sederhana", "review": "NEEDS REVIEW"},
+  "class.high": {"text": "Tinggi", "review": "NEEDS REVIEW"},
+  "class.veryhigh": {"text": "Sangat tinggi", "review": "NEEDS REVIEW"},
+  "legend.estimated": {"text": "berjalur: anggaran daripada MODIS", "review": "NEEDS REVIEW"},
+  "legend.provisional": {"text": "garis putus-putus: sementara", "review": "NEEDS REVIEW"},
+  "usual.below": {"text": "lebih rendah daripada biasa", "review": "NEEDS REVIEW"},
+  "usual.close": {"text": "hampir sama seperti biasa", "review": "NEEDS REVIEW"},
+  "usual.above": {"text": "lebih tinggi daripada biasa", "review": "NEEDS REVIEW"},
+  "usual.wellabove": {"text": "jauh lebih tinggi daripada biasa", "review": "NEEDS REVIEW"},
+  "status.sentence": {"text": "{usual}: kira-kira {x} kali ganda biasa bagi {month} (normal {label}).", "review": "NEEDS REVIEW"},
+  "season.sentence": {"text": "Tempoh pembakaran yang mungkin: {months}. Bulan-bulan ini mencapai Tinggi atau Sangat tinggi dalam sekurang-kurangnya separuh daripada tahun.", "review": "NEEDS REVIEW"},
+  "season.history": {"text": "Ini sejarah, bukan ramalan.", "review": "NEEDS REVIEW"}
+}
