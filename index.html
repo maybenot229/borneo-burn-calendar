@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Borneo Burn Calendar</title>
+<meta name="description" content="A harmonized MODIS + VIIRS burning activity calendar for Sabah, Malaysia.">
+<!--
+  Borneo Burn Calendar - Team SpaceZY - NASA Space Apps Challenge 2026
+  Challenge: Harmonization of MODIS and VIIRS Hot Spots
+  AI-use note: code and draft text produced with Claude (Anthropic),
+  directed and reviewed by the team.
+  Data: NASA FIRMS (MODIS C6.1, VIIRS S-NPP). File: data/sabah_harmonized_monthly.csv
+-->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Borneo Burn Calendar</h1>
+    <p class="lead">20+ years of fire hotspots as one consistent monthly record, so land managers can plan their fire season.</p>
+    <p class="tags"><span>Sabah, Malaysia</span><span id="latestTag">Latest complete month: …</span></p>
+  </div>
+</header>
+
+<main class="wrap">
+  <p id="error" class="error" hidden></p>
+
+  <section class="headline" id="headline" aria-label="Headline finding" hidden>
+    <p class="h1line" id="headLine1"></p>
+    <p class="h2line"><span id="headLine2"></span> <a href="#proof1">See Proof 1</a></p>
+  </section>
+
+  <section class="card controls" aria-label="Controls">
+    <label>From year <select id="from"></select></label>
+    <label>To year <select id="to"></select></label>
+    <div class="field">
+      <span class="lbl">Record shown</span>
+      <span class="toggle" role="group" aria-label="Record shown">
+        <button id="btnHarm" aria-pressed="true">Harmonized</button>
+        <button id="btnRaw" aria-pressed="false">Raw join</button>
+      </span>
+    </div>
+    <a class="btn" id="download" href="data/sabah_harmonized_monthly.csv" download>Download CSV</a>
+  </section>
+
+  <section class="stats" id="stats" aria-label="Summary"></section>
+
+  <section class="card">
+    <h2>Burning activity calendar</h2>
+    <p class="hint" id="heatHint"></p>
+    <div class="scroll"><table class="heat" id="heat"></table></div>
+    <div class="legend" id="legend"></div>
+  </section>
+
+  <section class="card">
+    <h2>Now vs normal</h2>
+    <p class="hint">One month compared with the median of the same calendar month over the previous years (up to 10).</p>
+    <label class="inline">Month <select id="nowMonth"></select></label>
+    <div id="nowBox" class="nowbox"></div>
+  </section>
+
+  <section class="card" id="proof1">
+    <h2>Proof 1: the fake jump at 2012</h2>
+    <p class="hint">Raw join uses MODIS counts before February 2012 and VIIRS counts after. VIIRS sees more, so fire seems to jump. The harmonized record removes that jump.</p>
+    <div id="lineChart"></div>
+    <div class="key">
+      <span><i class="k-harm"></i>Harmonized</span>
+      <span><i class="k-raw"></i>Raw join (no fix)</span>
+      <span><i class="k-v"></i>VIIRS starts (Feb 2012)</span>
+    </div>
+    <details>
+      <summary>Show the numbers as a table (yearly totals)</summary>
+      <div id="headTextAlt" hidden>
+        <p id="headAlt1"></p>
+        <p id="headAlt2"></p>
+        <div class="scroll"><table class="plain" id="headTable"></table></div>
+      </div>
+      <div class="scroll"><table class="plain" id="yearTable"></table></div>
+    </details>
+  </section>
+
+  <section class="card">
+    <h2>Proof 2: tested on years the method never saw</h2>
+    <p class="hint">We learned the ratio on 2012–2018, then predicted VIIRS for 2019–2025 from MODIS alone.</p>
+    <img src="img/chart_holdout_test.png" loading="lazy"
+         alt="Line chart of monthly hotspots in Sabah, 2019 to 2025. The adjusted MODIS line follows the real VIIRS line closely, including the peaks in early 2019, 2020 and 2024. The raw MODIS line sits far below both.">
+    <p class="caption">Hold-out test. Blue: real VIIRS. Orange dashes: MODIS × ratio. Grey dots: MODIS with no fix. Chart made by our notebook from NASA FIRMS data.</p>
+  </section>
+
+  <section class="card results">
+    <h2>Results</h2>
+    <p>On test years the method had about 24% total error and agreed on the colour class 86% of the time. Reliable for ranking months and seeing the season. Not for one exact month before 2012.</p>
+  </section>
+
+  <section class="card">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li><b>Clean both datasets.</b> Same area, same confidence rule, monthly counts.</li>
+      <li><b>Find the overlap years.</b> Both sensors flew together from 2012.</li>
+      <li><b>Compute the ratio.</b> VIIRS sees about 4.95 times more hotspots than MODIS here.</li>
+      <li><b>Estimate earlier years.</b> MODIS counts before 2012 are multiplied by that ratio.</li>
+      <li><b>Test it.</b> We checked the method on 2019–2025, years it never saw.</li>
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2>Limits</h2>
+    <ul class="limits">
+      <li>FIRMS lists detections only, so we cannot prove MODIS missed a fire.</li>
+      <li>Hotspots are not burned area.</li>
+      <li>Before 2012 values are estimates from MODIS.</li>
+      <li>The record starts in 2003 because only one MODIS satellite flew before mid-2002.</li>
+      <li>Quiet months are less certain: our ratio under-predicts VIIRS there by about 16%.</li>
+      <li>Aqua's overpass drifted after 2022 (05:40 to 07:28 UTC).</li>
+      <li>The ratio is proven for Sabah only.</li>
+      <li>August to October 2026 is provisional near-real-time data.</li>
+      <li>This is a planning tool, not live fire response.</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="wrap">
+  Team SpaceZY. NASA Space Apps Challenge 2026. Data: NASA FIRMS (MODIS C6.1, VIIRS S-NPP).
+  AI use: code and draft text produced with Claude (Anthropic), directed and reviewed by the team.
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
