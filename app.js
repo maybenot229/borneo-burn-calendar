@@ -46,15 +46,17 @@ function renderStats(sel) {
   const years = {};
   sel.forEach(r => { (years[r.year] ??= {t: 0, n: 0, est: false}); years[r.year].t += r.harmonized; years[r.year].n++;
                      if (r.estimated) years[r.year].est = true; });
-  const worst = Object.entries(years).filter(([, o]) => o.n === 12).sort((a, b) => b[1].t - a[1].t).slice(0, 3);
-  const anyEst = worst.some(([, o]) => o.est);
+  const full = Object.entries(years).filter(([, o]) => o.n === 12).sort((a, b) => b[1].t - a[1].t);
+  const top3 = est => full.filter(([, o]) => o.est === est).slice(0, 3)
+    .map(([y]) => y + (est ? "*" : "")).join(", ") || "–";
   $("stats").innerHTML =
     `<div class="stat"><div class="k">Months that burn most</div>
        <div class="v">${top.map(x => MONTHS[x[1]]).join(", ")}</div>
        <div class="s">Highest median hotspots per calendar month, in the years selected.</div></div>
      <div class="stat"><div class="k">Worst years</div>
-       <div class="v">${worst.map(([y, o]) => y + (o.est ? "*" : "")).join(", ") || "–"}</div>
-       <div class="s">Highest yearly totals, full years only.${anyEst ? " * estimated from MODIS." : ""}</div></div>
+       <div class="v2"><span class="lbl">Measured (VIIRS):</span> ${top3(false)}</div>
+       <div class="v2"><span class="lbl">Estimated from MODIS*:</span> ${top3(true)}</div>
+       <div class="s">Highest yearly totals, full years only. * estimated from MODIS, less certain.</div></div>
      <div class="stat"><div class="k">Months in view</div>
        <div class="v">${sel.length}</div>
        <div class="s">${sel.filter(r => r.estimated).length} estimated from MODIS, ${sel.filter(r => !r.estimated).length} measured by VIIRS.</div></div>`;

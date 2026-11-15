@@ -44,7 +44,9 @@ button { cursor:pointer; }
 .stat { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px; }
 .stat .k { font-size:.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; }
 .stat .v { font-size:1.45rem; font-weight:700; margin:2px 0; }
-.stat .s { font-size:.88rem; color:var(--muted); }
+.stat .v2 { font-size:1.05rem; font-weight:700; margin:4px 0; }
+.stat .v2 .lbl { display:block; font-size:.78rem; font-weight:400; color:var(--muted); }
+.stat .s {font-size:.88rem; color:var(--muted); }
 
 .scroll { overflow-x:auto; }
 table.heat { border-collapse:separate; border-spacing:2px; font-size:.8rem; min-width:600px; width:100%; }

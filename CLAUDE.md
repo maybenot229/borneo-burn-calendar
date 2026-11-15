@@ -155,9 +155,9 @@ git push
 
 - After a push, tell the team to wait 2 minutes, then hard refresh the site (Ctrl+F5) in a private window.
 
-## 11. Open task: fix the "Worst years" card
+## 11. Finished task: the "Worst years" card
 
-**Status:** not done. Do it only when asked.
+**Status:** done on 15 Nov 2026. Kept here as a record and as a test table.
 
 **Where:** `renderStats(sel)` in `app.js`, the second summary card. Small CSS additions in `style.css` if needed.
 
