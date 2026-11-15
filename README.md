@@ -18,7 +18,7 @@ Average hotspots per year, Sabah box, 2003–2011 against 2012–2025:
 | Harmonized (MODIS × 4.95, then VIIRS) | about 6,270 | about 2,540 | about −59% |
 | MODIS alone, no ratio | 1,267 | 515 | −59% |
 
-Joined as-is, hotspots look like they doubled. Harmonized, they fell by about 60%. MODIS alone agrees with the harmonized fall, which checks the ratio independently. The 2003–2011 harmonized values are estimates. Hotspots are not burned area.
+Joined as-is, hotspots look like they doubled. Harmonized, they fell by about 59%. MODIS alone shows the same fall. That follows from the arithmetic, so it is not an independent check of the ratio. It shows the fall comes from the MODIS record itself. The ratio puts both eras on one scale and removes the fake doubling. The 2003–2011 harmonized values are estimates. This is a change in estimated hotspot counts, not burned area.
 
 ## Method
 1. Download MODIS C6.1 and VIIRS S-NPP 375 m archive data from NASA FIRMS for the Sabah box (lat 4.0–7.5, lon 115.3–119.3).
@@ -52,6 +52,21 @@ We also tested other methods on the same split:
 
 None clearly beat the simple ratio. The seasonal ratio pattern does not repeat between training and test years, and the best-scoring alternative over-predicts the quietest months. The test years were used for several methods, so differences of 1 to 3 points should not be over-read. Details: `analysis/method_checks.py`.
 
+## Robustness checks
+On 15 November 2026 we ran four extra checks. They do not change the method or the numbers on the website. Details, tables and figures: `robustness/REPORT.md`.
+
+| Check | Result |
+|---|---|
+| Ratio year by year, 2012–2025 | Between 4.2 and 6.1, no clear trend. Highest in the quietest years. |
+| How sure is the 59% fall | A fall in every check. Ratio uncertainty alone gives −57% to −61%. Dropping any one year gives −56% to −66%. |
+| Terra only, Aqua only | Terra + Aqua is best (24% error). Aqua only 28%. Terra only 46%. |
+| Other confidence filters | Error stays at 24–25%. The ratio itself moves from 4.6 to 6.0. |
+
+What these checks tell us:
+- The direction of the fall is robust. Its size is less certain. Treating the years as a sample gives a wide range, about −35% to −75%, and it rests on only nine early years.
+- The ratio before 2012 cannot be tested. It would have to be 2.0 for the fall to vanish. The lowest yearly ratio we measured is 4.2.
+- The ratio of about 4.95 holds only for our confidence filters.
+
 ## Why the sensors differ (Experiment B)
 We matched Aqua and Suomi NPP detections, 2012–2022, daytime. VIIRS detections with no Aqua partner are weaker (median power 5.6 MW against 9.0 MW) and more often single pixels (54% against 25%). Quiet months have more of them. This fits small fires, VIIRS false alarms or missing Aqua coverage. The data cannot say which, and it does not show that MODIS "missed" fires. Full report: `experiment_b/REPORT.md`.
 
@@ -60,7 +75,8 @@ We matched Aqua and Suomi NPP detections, 2012–2022, daytime. VIIRS detections
 - Hotspots are not burned area.
 - Values before Feb 2012 are estimates from MODIS. The method is reliable for colour class, ranking and season shape, not for exact single-month counts.
 - Quiet months are less certain: the ratio under-predicts VIIRS there by about 16%.
-- Aqua's overpass drifted after 2022 (about 05:40 to 07:28 UTC by 2026), so the two sensors see fires at different times of day.
+- Aqua's overpass drifted after 2022 (about 05:40 to 07:28 UTC by 2026), so the two sensors see fires at different times of day. Terra drifted too, the other way (about 02:55 to 01:43 UTC by 2025).
+- The size of the 59% fall depends on which years are included, and the pre-2012 ratio cannot be tested. The ratio of about 4.95 holds only for our confidence filters.
 - The ratio is proven for the Sabah box only, which also covers parts of neighbouring regions. A region cut in four showed ratios between about 4.4 and 6.1, so the ratio is not the same everywhere.
 - August to October 2026 uses near-real-time data and is provisional.
 
@@ -72,6 +88,7 @@ We matched Aqua and Suomi NPP detections, 2012–2022, daytime. VIIRS detections
 | `notebooks/` | Google Colab notebooks: Steps 2–5 (load, clean, count, overlap) and Steps 6–9 (ratios, hold-out test, charts, final CSV) |
 | `analysis/method_checks.py` | Reruns the method comparison, seasonal, quiet-month and regional checks |
 | `experiment_b/` | Aqua against S-NPP detection-level experiment: notebook and report |
+| `robustness/` | Four robustness checks: script, report, tables and figures |
 
 To rerun: download the raw files from NASA FIRMS (https://firms.modaps.eosdis.nasa.gov/download/) with the Sabah box and the products above, then run the notebooks in order. The raw files are not included in this repository.
 
@@ -80,7 +97,7 @@ NASA FIRMS: MODIS Collection 6.1 (Terra and Aqua) and VIIRS 375 m Collection 2 (
 
 ## AI use
 We used Claude (Anthropic) to explain methods step by step, write and run analysis code in Google Colab and Claude Code, check results, and draft text and website code. A second AI model reviewed some experiments. The team ran the code on our own data and reviewed the results.
-The project idea and direction were chosen by team SpaceZY
+The project idea and direction were chosen by team SpaceZY.
 
 ## Team
 SpaceZY. NASA Space Apps Challenge 2026.
