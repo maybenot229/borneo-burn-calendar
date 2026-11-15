@@ -102,11 +102,15 @@ No install or build step is needed. The site is plain HTML, CSS and JavaScript. 
 | Path | What |
 |---|---|
 | `index.html`, `app.js`, `style.css` | The website (plain HTML and JavaScript, no build step) |
-| `data/sabah_harmonized_monthly.csv` | The monthly record, with "now vs normal" |
+| `data/` | `sabah_harmonized_monthly.csv`: the monthly record, 286 months, with "now vs normal" |
+| `img/` | Charts shown on the site: the hold-out test, raw join against harmonized, and the three-panel sensors figure |
 | `notebooks/` | Google Colab notebooks: Steps 2–5 (load, clean, count, overlap) and Steps 6–9 (ratios, hold-out test, charts, final CSV) |
-| `analysis/method_checks.py` | Reruns the method comparison, seasonal, quiet-month and regional checks |
-| `experiment_b/` | Aqua against S-NPP detection-level experiment: notebook and report |
-| `robustness/` | Four robustness checks: script, report, tables and figures |
+| `analysis/` | `method_checks.py` reruns the method comparison, seasonal, quiet-month and regional checks. `fig_three_panel.py` draws the three-panel sensors figure |
+| `experiment_b/` | Aqua against S-NPP detection-level experiment. `REPORT.md` is the final report. `experiment_b.ipynb` is the notebook. `src/` holds the step scripts, `intermediate/` the result tables, `figures/` the charts, `progress.md` the work log. Files ending `_before_dayaudit` are the earlier version, kept for the record |
+| `robustness/` | Four robustness checks: `robustness_checks.py`, `REPORT.md`, and `robustness_out/` (tables and figures) |
+| `i18n/` | `ms.json`: draft Bahasa Malaysia labels. Not yet reviewed by a Malay speaker and not used by the site |
+| `LICENSE` | MIT license |
+| `CLAUDE.md`, `SITE_UPGRADE_PROMPT.md`, `progress.md` | Working notes from building with Claude Code: rules for the AI assistant, the site upgrade brief and a progress log. Kept to be open about AI use |
 
 To rerun: download the raw files from NASA FIRMS (https://firms.modaps.eosdis.nasa.gov/download/) with the Sabah box and the products above, then run the notebooks in order. The raw files are not included in this repository.
 
