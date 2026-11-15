@@ -15,7 +15,7 @@ Average hotspots per year, Sabah box, 2003–2011 against 2012–2025:
 | Record | 2003–2011 | 2012–2025 | Change |
 |---|---:|---:|---:|
 | Raw join (MODIS, then VIIRS) | 1,267 | 2,538 | +100% |
-| Harmonized (MODIS × 4.95, then VIIRS) | about 6,270 | about 2,540 | about −60% |
+| Harmonized (MODIS × 4.95, then VIIRS) | about 6,270 | about 2,540 | about −59% |
 | MODIS alone, no ratio | 1,267 | 515 | −59% |
 
 Joined as-is, hotspots look like they doubled. Harmonized, they fell by about 60%. MODIS alone agrees with the harmonized fall, which checks the ratio independently. The 2003–2011 harmonized values are estimates. Hotspots are not burned area.
